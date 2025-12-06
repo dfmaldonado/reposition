@@ -1,48 +1,65 @@
-import { View, Text, useColorScheme } from 'react-native'
-import { Calculator, History, ListCollapse } from 'lucide-react-native'
+import { View, Text, useColorScheme, Platform } from 'react-native' // Agregué Platform
+import { Calculator, History } from 'lucide-react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 
 const _layout = () => {
   const colorScheme = useColorScheme()
+  const theme = colorScheme ?? 'light'
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].tabIconDefault,
+        tabBarActiveTintColor: Colors[theme].tint,
+        tabBarInactiveTintColor: Colors[theme].tabIconDefault, 
         headerShown: false,
+        tabBarShowLabel: true,
+        
+        // ESTILO FLOTANTE
         tabBarStyle: {
-          backgroundColor: Colors[colorScheme ?? 'light'].background,
-          height: 80,
-          width: 374,
-          marginBottom: 10,
-          borderRadius: 16,
-          alignSelf: 'center',
+          backgroundColor: Colors[theme].background,
+          position: 'absolute', 
+          bottom: 20,
+          left: 20,  
+          right: 20,  
+          height: 70, 
+          borderRadius: 25, 
+          borderTopWidth: 0,
+          
+          elevation: 5, 
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 5 },
+          shadowOpacity: 0.15,
+          shadowRadius: 5,
         },
+        
         tabBarLabelStyle: {
           fontSize: 12,
-          marginTop: 4, 
-          marginBottom: 8, 
+          marginBottom: 5,
+          fontWeight: '600',
         },
         tabBarIconStyle: {
-          marginTop: 8,
+          marginTop: 5,
         }
       }}
     >
       <Tabs.Screen 
         name='index'
         options={{
-          title: "Caculadora",
-          tabBarIcon: ({color}) => <Calculator size={24} color={color}/>
+          title: "Calculadora",
+          tabBarIcon: ({color, size}) => (
+            <Calculator size={size || 24} color={color}/>
+          )
         }}
       />
       <Tabs.Screen 
         name='history'
         options={{
           title: "Historial",
-          tabBarIcon: ({color}) => <History size={24} color={color}/>
+          tabBarIcon: ({color, size}) => (
+            <History size={size || 24} color={color}/>
+          )
         }}
       /> 
     </Tabs>

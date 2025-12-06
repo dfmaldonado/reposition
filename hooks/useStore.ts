@@ -1,25 +1,46 @@
 import { create } from 'zustand';
 
-interface dataStore {
-    id: number;
-    operation: string;
-    result: string;
-    date: string;
-
-    setId: (value: number) => void;
-    setOperation: (value: string) => void;
-    setResult: (value: string) => void;
-    setDate: (value: string) => void;
+export interface OperationItem {
+  id: string; 
+  operation: string;
+  result: string;
+  date: string;
 }
 
-export const useHistoryStore = create<dataStore>((set) => ({
-    id: 0,
-    operation: '',
-    result: '',
-    date: '',
+interface DataStore {
+  selectedId: string;
+  selectedOperation: string;
+  selectedResult: string;
+  selectedDate: string;
 
-    setId: (value) => set({ id: value }),
-    setOperation: (value) => set({ operation: value }),
-    setResult: (value) => set({ result: value }),
-    setDate: (value) => set({ date: value })
+  history: OperationItem[];
+
+  // Acciones para Detalles
+  setSelectedId: (value: string) => void;
+  setSelectedOperation: (value: string) => void;
+  setSelectedResult: (value: string) => void;
+  setSelectedDate: (value: string) => void;
+
+  addToHistory: (item: OperationItem) => void;
+  clearHistory: () => void;
+}
+
+export const useHistoryStore = create<DataStore>((set) => ({
+  // Valores iniciales
+  selectedId: '',
+  selectedOperation: '',
+  selectedResult: '',
+  selectedDate: '',
+  history: [],
+
+  setSelectedId: (value) => set({ selectedId: value }),
+  setSelectedOperation: (value) => set({ selectedOperation: value }),
+  setSelectedResult: (value) => set({ selectedResult: value }),
+  setSelectedDate: (value) => set({ selectedDate: value }),
+
+  addToHistory: (item) => set((state) => ({ 
+    history: [item, ...state.history] 
+  })),
+  
+  clearHistory: () => set({ history: [] })
 }));
