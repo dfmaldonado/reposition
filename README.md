@@ -1,7 +1,7 @@
 # Calculadora RPN 
 
 Proyecto de calculadora con lógica **RPN (Notación Polaca Inversa)**. 
-Refactorizada con **Zustand** para gestión de estado global (adiós SQLite) y **NativeWind** para estilos. Funciona fluido en Android, iOS y Web.
+ **NativeWind** para estilos. Funciona fluido en Android, iOS y Web.
 
 ##Instalación en 3 pasos
 
